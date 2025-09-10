@@ -16,25 +16,3 @@ pipeline {
     stage('Deploy to Production') { steps { echo 'Deploy to production (Ansible/Helm/ArgoCD)' } }
   }
 }
-post {
-    success {
-      emailext(
-        subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-        body: """Build thành công!
-- Job   : ${env.JOB_NAME}
-- Build : #${env.BUILD_NUMBER}
-- Link  : ${env.BUILD_URL}""",
-        to: 'nguyengialam301020@gmail.com'
-      )
-    }
-    failure {
-      emailext(
-        subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-        body: """Build thất bại!
-- Job   : ${env.JOB_NAME}
-- Build : #${env.BUILD_NUMBER}
-- Link  : ${env.BUILD_URL}""",
-        to: 'nguyengialam301020@gmail.com'
-      )
-    }
-  }
